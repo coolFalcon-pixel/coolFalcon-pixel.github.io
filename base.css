@@ -1,0 +1,372 @@
+/* =====================================================
+   Aero Inventor — main.css
+   Tokens: black bg / dark pill nav / fluorescent cyan accent / Archivo+Inter+Mono
+   ===================================================== */
+
+:root {
+	--c-bg: #0a0c0d;
+	--c-ink: #f2f4f5;
+	--c-body: #b7bdc2;
+	--c-muted: #788086;
+	--c-line: #22262a;
+	--c-panel: #101315;
+	--c-accent: #07f4ed;
+	--c-accent-ink: #07f4ed;
+	--font-head: "Archivo", "Helvetica Neue", Arial, sans-serif;
+	--font-body: "Inter", "Segoe UI", Arial, sans-serif;
+	--font-mono: "JetBrains Mono", "Courier New", monospace;
+	--w-wide: 1564px;
+	--w-text: 860px;
+	--nav-h: 64px;
+	--sec-pad: clamp(72px, 10vw, 140px);
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+	margin: 0;
+	background: var(--c-bg);
+	color: var(--c-body);
+	font-family: var(--font-body);
+	font-size: 17px;
+	line-height: 1.65;
+	-webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+h1, h2, h3, h4 {
+	font-family: var(--font-head);
+	color: var(--c-ink);
+	line-height: 1.04;
+	letter-spacing: -0.02em;
+	margin: 0 0 0.5em;
+	font-weight: 800;
+}
+h1 { font-size: clamp(44px, 7vw, 96px); text-transform: uppercase; }
+h2 { font-size: clamp(32px, 4.6vw, 60px); text-transform: uppercase; }
+h3 { font-size: clamp(22px, 2.6vw, 32px); }
+
+/* ---------- utilities ---------- */
+.aero-container { max-width: var(--w-wide); margin: 0 auto; padding: 0 clamp(18px, 4vw, 56px); }
+.aero-narrow { max-width: var(--w-text); }
+
+.aero-kicker {
+	font-family: var(--font-mono);
+	font-size: 13px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--c-accent-ink);
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 18px;
+}
+.aero-kicker::before {
+	content: "";
+	width: 22px; height: 10px;
+	background: var(--c-accent);
+	display: inline-block;
+}
+
+.aero-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-family: var(--font-head);
+	font-weight: 700;
+	font-size: 15px;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	padding: 16px 34px;
+	border-radius: 999px;
+	background: var(--c-ink);
+	color: var(--c-bg);
+	border: 1px solid var(--c-ink);
+	transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+.aero-btn:hover { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-bg); transform: translateY(-2px); }
+.aero-btn--ghost { background: transparent; color: var(--c-ink); }
+.aero-btn--ghost:hover { background: var(--c-ink); color: var(--c-bg); }
+
+.screen-reader-text {
+	position: absolute !important;
+	width: 1px; height: 1px;
+	overflow: hidden; clip: rect(1px,1px,1px,1px);
+}
+
+/* ---------- sections ---------- */
+.aero-section { padding: var(--sec-pad) 0; border-top: 1px solid var(--c-line); }
+.aero-section:first-of-type { border-top: 0; }
+
+/* ---------- pill nav ---------- */
+.aero-nav {
+	position: fixed;
+	inset: 18px auto auto 50%;
+	transform: translateX(-50%);
+	z-index: 100;
+}
+.aero-nav__inner {
+	background: #101314;
+	border: 1px solid #2a2f33;
+	border-radius: 999px;
+	padding: 8px 22px;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	box-shadow: 0 6px 24px rgba(0,0,0,.5);
+	max-width: calc(100vw - 32px);
+}
+.aero-nav__logo, .aero-nav__logo a {
+	color: #fff;
+	font-family: var(--font-head);
+	font-weight: 800;
+	font-size: 17px;
+	letter-spacing: 0.02em;
+	white-space: nowrap;
+}
+.aero-nav__logo img.custom-logo { max-height: 30px; width: auto; }
+.aero-nav__menu { display: flex; align-items: center; gap: 18px; }
+.aero-menu { display: flex; gap: 4px; }
+.aero-menu a {
+	color: rgba(255,255,255,.82);
+	font-size: 14px;
+	font-weight: 500;
+	padding: 8px 14px;
+	border-radius: 999px;
+	transition: background .18s ease, color .18s ease;
+	white-space: nowrap;
+}
+.aero-menu a:hover, .aero-menu .current-menu-item a, .aero-menu .current_page_item a {
+	background: var(--c-accent);
+	color: var(--c-bg);
+}
+.aero-menu--lang { text-transform: uppercase; font-family: var(--font-mono); font-size: 12px; border-left: 1px solid rgba(255,255,255,.22); padding-left: 14px; }
+
+.aero-nav__toggle {
+	display: none;
+	background: none; border: 0; padding: 10px;
+	cursor: pointer;
+}
+.aero-nav__toggle span {
+	display: block; width: 20px; height: 2px;
+	background: #fff; margin: 5px 0;
+	transition: transform .2s ease, opacity .2s ease;
+}
+
+/* ---------- hero ---------- */
+.aero-hero {
+	min-height: 92vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-top: calc(var(--nav-h) + 40px);
+	position: relative;
+	overflow: hidden;
+}
+.aero-hero__lines span { display: block; }
+.aero-hero__lines .accent { color: var(--c-accent-ink); }
+.aero-hero__sub { font-size: clamp(17px, 1.6vw, 22px); color: var(--c-body); max-width: 640px; margin: 28px 0 40px; }
+.aero-hero__img { margin-top: 56px; }
+/* 3D interactive hero */
+.aero-hero__3d {
+	position: relative;
+	margin-top: 48px;
+	height: clamp(340px, 46vw, 580px);
+	border: 1px solid var(--c-line);
+	border-radius: 16px;
+	background:
+		linear-gradient(180deg, rgba(7,244,237,.03), rgba(7,244,237,0) 40%),
+		var(--c-panel);
+	overflow: hidden;
+	cursor: grab;
+	touch-action: none;
+}
+.aero-hero__3d:active { cursor: grabbing; }
+.aero-hero__3d canvas { display: block; width: 100%; height: 100%; }
+.aero-hero__3d-hint {
+	position: absolute; left: 16px; bottom: 14px; z-index: 2;
+	font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em;
+	color: var(--c-muted); text-transform: uppercase; pointer-events: none;
+}
+.aero-hero__scroll {
+	position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+	font-family: var(--font-mono); font-size: 12px;
+	letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-muted);
+}
+
+/* ---------- statement ---------- */
+.aero-statement { text-align: center; }
+.aero-statement h2 { font-size: clamp(40px, 6.4vw, 88px); }
+.aero-statement p { max-width: 720px; margin: 24px auto 0; }
+
+/* ---------- two-col ---------- */
+.aero-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.aero-cols__text h2 { margin-bottom: 20px; }
+
+/* ---------- features ---------- */
+.aero-feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.aero-feat {
+	border: 1px solid var(--c-line);
+	padding: 34px 28px;
+	border-radius: 14px;
+	background: var(--c-panel);
+	transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.aero-feat:hover { border-color: var(--c-accent); transform: translateY(-4px); box-shadow: 0 14px 34px rgba(0,0,0,.45); }
+.aero-feat__no { font-family: var(--font-mono); font-size: 13px; color: var(--c-accent-ink); display: block; margin-bottom: 14px; }
+.aero-feat h3 { font-size: 24px; margin-bottom: 10px; }
+
+/* ---------- specs table ---------- */
+.aero-specs { width: 100%; border-collapse: collapse; }
+.aero-specs th, .aero-specs td {
+	text-align: left;
+	padding: 16px 18px;
+	border-bottom: 1px solid var(--c-line);
+	vertical-align: top;
+}
+.aero-specs th { font-family: var(--font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--c-ink); width: 38%; font-weight: 500; }
+.aero-specs td { color: var(--c-body); }
+
+/* ---------- gallery strip ---------- */
+.aero-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.aero-gallery img { border-radius: 12px; width: 100%; }
+
+/* ---------- cards (projects / honors) ---------- */
+.aero-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.aero-card-link { display: block; text-decoration: none; color: inherit; border-radius: 16px; }
+.aero-card-link:hover .aero-card h3 { text-decoration: underline; text-decoration-color: var(--c-accent); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.aero-card {
+	border: 1px solid var(--c-line);
+	border-radius: 16px;
+	overflow: hidden;
+	display: flex; flex-direction: column;
+	background: var(--c-panel);
+	transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.aero-card:hover { border-color: var(--c-accent); transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.5); }
+.aero-card__media { aspect-ratio: 4 / 3; background: #16191c; overflow: hidden; }
+.aero-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.aero-card__body { padding: 24px 22px 28px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.aero-card__body h3 { margin: 0; }
+.aero-card__more { margin-top: auto; font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--c-accent-ink); }
+
+/* ---------- honors ---------- */
+.aero-honor__year { font-family: var(--font-mono); font-size: 13px; color: var(--c-muted); }
+
+/* ---------- QR / contact block ---------- */
+.aero-qr { display: grid; grid-template-columns: 260px 1fr; gap: 40px; align-items: center; }
+.aero-qr__img { border: 1px solid var(--c-line); border-radius: 14px; padding: 16px; background: var(--c-panel); }
+.aero-qr__img img { width: 100%; }
+.aero-mail {
+	font-family: var(--font-head);
+	font-size: clamp(22px, 3vw, 40px);
+	font-weight: 700;
+	color: var(--c-ink);
+	border-bottom: 4px solid var(--c-accent);
+	padding-bottom: 4px;
+}
+
+/* ---------- CTA ---------- */
+.aero-cta { text-align: center; background: var(--c-panel); border-top: 1px solid rgba(7, 244, 237, .22); border-bottom: 1px solid rgba(7, 244, 237, .22); color: var(--c-body); }
+.aero-cta h2 { color: var(--c-accent); }
+.aero-cta .aero-btn { background: var(--c-accent); color: #07292b; border-color: var(--c-accent); }
+.aero-cta .aero-btn:hover { background: transparent; color: var(--c-accent); border-color: var(--c-accent); }
+
+/* ---------- page generic ---------- */
+.aero-page-head { padding: calc(var(--nav-h) + clamp(48px, 7vw, 90px)) 0 0; }
+.aero-page-head h1 { margin-bottom: 24px; }
+.aero-editor-content { max-width: var(--w-text); }
+.aero-editor-content img { border-radius: 12px; margin: 28px 0; }
+
+/* ---------- forms (CF7 on dark) ---------- */
+input[type="text"], input[type="email"], input[type="tel"],
+input[type="url"], input[type="search"], textarea, select {
+	background: var(--c-panel);
+	border: 1px solid var(--c-line);
+	color: var(--c-ink);
+	border-radius: 10px;
+	padding: 14px 16px;
+	font-family: var(--font-body);
+	font-size: 15px;
+	width: 100%;
+	max-width: 640px;
+	transition: border-color .2s ease;
+}
+input:focus, textarea:focus, select:focus { border-color: var(--c-accent); outline: none; }
+input::placeholder, textarea::placeholder { color: var(--c-muted); }
+.wpcf7 label { display: block; color: var(--c-body); font-size: 15px; margin-bottom: 20px; }
+.wpcf7-form-control-wrap { display: block; margin-top: 6px; }
+.wpcf7-submit, .aero-editor-content input[type="submit"] {
+	display: inline-flex; align-items: center;
+	font-family: var(--font-head); font-weight: 700; font-size: 15px;
+	letter-spacing: 0.04em; text-transform: uppercase;
+	padding: 16px 34px; border-radius: 999px; cursor: pointer;
+	background: var(--c-accent); color: var(--c-bg);
+	border: 1px solid var(--c-accent);
+	max-width: none; width: auto;
+	transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+.wpcf7-submit:hover { background: transparent; color: var(--c-accent); transform: translateY(-2px); }
+.wpcf7-not-valid-tip { color: #ff8f8f; font-size: 13px; }
+.wpcf7-response-output { border-radius: 10px; }
+.wpcf7-mail-sent-ok { border-color: var(--c-accent) !important; color: var(--c-accent) !important; }
+.wpcf7-validation-errors, .wpcf7-mail-sent-ng { border-color: #ff8f8f !important; color: #ffb1b1 !important; }
+.wpcf7-spam-blocked { border-color: #ffb36b !important; color: #ffb36b !important; }
+
+/* ---------- footer ---------- */
+.aero-footer { border-top: 1px solid var(--c-line); margin-top: var(--sec-pad); }
+.aero-footer__inner {
+	max-width: var(--w-wide);
+	margin: 0 auto;
+	padding: 56px clamp(18px, 4vw, 56px) 40px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 28px;
+	justify-content: space-between;
+}
+.aero-footer__brand a { font-family: var(--font-head); font-weight: 800; font-size: 20px; color: var(--c-ink); }
+.aero-footer__brand p { margin: 6px 0 0; font-family: var(--font-mono); font-size: 13px; color: var(--c-muted); }
+.aero-footer__menu { display: flex; gap: 22px; }
+.aero-footer__menu a { font-size: 14px; font-weight: 500; color: var(--c-body); }
+.aero-footer__menu a:hover { color: var(--c-accent-ink); }
+.aero-footer__copy { width: 100%; font-size: 13px; color: var(--c-muted); font-family: var(--font-mono); }
+
+/* ---------- reveal animation ---------- */
+.aero-reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+.aero-reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+	.aero-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1024px) {
+	.aero-feats, .aero-gallery, .aero-cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 780px) {
+	.aero-nav { inset: 12px auto auto 50%; }
+	.aero-nav__inner { padding: 6px 16px; }
+	.aero-nav__toggle { display: block; }
+	.aero-nav__menu {
+		display: none;
+		position: absolute;
+		top: calc(100% + 10px); left: 0; right: 0;
+		background: #101314;
+		border: 1px solid #2a2f33;
+		border-radius: 18px;
+		padding: 14px;
+		flex-direction: column;
+		align-items: stretch;
+	}
+	.aero-nav__menu.is-open { display: flex; }
+	.aero-nav__toggle[aria-expanded="true"] span:first-child { transform: translateY(7px) rotate(45deg); }
+	.aero-nav__toggle[aria-expanded="true"] span:last-child { transform: translateY(-7px) rotate(-45deg); }
+	.aero-menu { flex-direction: column; }
+	.aero-menu--lang { border-left: 0; padding-left: 0; flex-direction: row; }
+	.aero-cols, .aero-qr { grid-template-columns: 1fr; }
+	.aero-feats, .aero-gallery, .aero-cards { grid-template-columns: 1fr; }
+}
